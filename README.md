@@ -1,70 +1,135 @@
-# Getting Started with Create React App
+# 동료학습을 통해서 인턴쉽 선발 과제 Best Practice 만들기
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 📕 개요
 
-## Available Scripts
+링크
 
-In the project directory, you can run:
+### 과제 목적
 
-### `npm start`
+목적
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### 기간
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+기간
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 👨‍👩‍👧‍👦 Members
 
-### `npm run build`
+| 류지창                                                                                           | 박준하                                                                                          | 백광천                                                                                          | 유제원                                                                                          | 정세연                                                                                          | 조영일                                                                                          |
+| ------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| <img src="https://avatars.githubusercontent.com/u/104156381?s=70&v=4" width="100" height="100"/> | <img src="https://avatars.githubusercontent.com/u/85827017?s=70&v=4" width="100" height="100"/> | <img src="https://avatars.githubusercontent.com/u/82658528?s=70&v=4" width="100" height="100"/> | <img src="https://avatars.githubusercontent.com/u/96014828?s=70&v=4" width="100" height="100"/> | <img src="https://avatars.githubusercontent.com/u/79056677?s=70&v=4" width="100" height="100"/> | <img src="https://avatars.githubusercontent.com/u/86599495?s=70&v=4" width="100" height="100"/> |
+| [RyuJiChang](https://github.com/RyuJiChang)                                                      | [harseille](https://github.com/harseille)                                                       | [back0202](https://github.com/back0202)                                                         | [LLSJYY](https://github.com/LLSJYY)                                                             | [n0eyes](https://github.com/n0eyes)                                                             | [young1the](https://github.com/young1the)                                                       |
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🖥 Demo
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+시연영
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## ⚡️ 사용 라이브러리
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. React
+3. React-router-dom
+4. Styled-components
+5. Axios
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## ✅ 요구사항
 
-## Learn More
+### 1) Auth
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- 이메일과 비밀번호의 유효성 검사
+  - 이메일 조건: `@` 포함, 비밀번호 조건: 8자 이상
+  - 입력된 이메일과 비밀번호가 위 조건을 만족할 때 버튼 활성화
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## 👍 Best Practice
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 1. 초기 세팅
 
-### Analyzing the Bundle Size
+#### 사용 라이브러리
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. TypeScript
+   TypeScript는 취업 시에 필수적인 기술스텍이기 때문에 TypeScript 사용에 **익숙해지기**위해서 사용하는 것으로 결정했습니다.
 
-### Making a Progressive Web App
+2. React-router-dom@6.5
+   이전 버전과 다른 방식의 동작원리인 react-router-dom@6.5이 `loader`, `action`, 'RouterForm' 등 기능을 사용하여 코드를 간결하게 작성할 수 있어서 best practice로 선정했습니다.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```ts
+// action 사용 예시
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path='/' errorElement={<Error />}>
+      <Route element={<App />}>
+        <Route
+          index
+          element={
+            <Auth to='/todo' login={true}>
+              <Login />
+            </Auth>
+          }
+          action={loginAction}
+        />
+        ...
+      </Route>
+    </Route>,
+  ),
+);
+```
 
-### Advanced Configuration
+```ts
+// RouterForm 사용 예신
+import { Form as RouterForm } from "react-router-dom";
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+type Unpacked<T> = T extends React.ForwardRefExoticComponent<infer U> ? U : T;
 
-### Deployment
+const Form = ({ children, ...props }: PropsWithChildren<Unpacked<typeof RouterForm>>) => {
+  return <Styled.Form {...props}>{children}</Styled.Form>;
+};
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
+### 디렉토리 구조
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+#### 가장 마지막 디렉토리 (Leaf Directory)
+
+```
+todo
+└─TodoList
+    ├─index.tsx
+    └─style.tsx
+```
+
+leaf directory에 `index` 파일을 생성해서 directory 이름과 상응하는 component 혹은 page를 두어서 관리했습니다.
+
+#### common, auth, todo
+
+TODO 서비스에서 크게 login과 join을 관리하는 **Auth** 부분 그리고 **Todo** 로 나뉘어집니다.
+그에 맞게 components 디렉토리에서 Auth에서 사용되는 파일들은 auth 디렉토리에 (`components/auth/AuthForm`),
+Todo에서 사용되는 파일들은 todo 디렉토리에 (`components/todo/TodoList`)두어서 분리하고,
+common 디렉토리에는 공통적으로 사용되는 component인 `button`, `input` 과 같은 컴포넌트를 두었습니다.
+
+---
+
+## 📢 프로젝트 실행방법
+
+실행할 때 반드시 다음 파일을 최상단에 생성후 실행 해주셔야 합니다.
+
+```
+// .env
+REACT_APP_BASE_URL=https://pre-onboarding-selection-task.shop
+```
+
+```
+npm install
+npm start
+```
+
+## 📝 문서
+
+[회의록](https://www.notion.so/43f61c18daaf4db68d62863ea539dbf4)
