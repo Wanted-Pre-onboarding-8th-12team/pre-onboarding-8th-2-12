@@ -7,8 +7,7 @@ export const useModal = () => {
     setIsOpened(true);
   }, []);
 
-  const closeModal = useCallback((callback = () => {}) => {
-    callback();
+  const closeModal = useCallback(() => {
     setIsOpened(false);
   }, []);
 

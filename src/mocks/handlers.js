@@ -44,7 +44,7 @@ const initial = {
       order: 1024,
       title: '제목1111111',
       content: '내용1',
-      endDate: '2023-03-01',
+      endDate: getToday(),
       owner: [{ id: 1, name: 'seyeon1' }],
     },
     {
@@ -53,7 +53,7 @@ const initial = {
       order: 2048,
       title: '제목22222222',
       content: '내용2',
-      endDate: '2023-03-02',
+      endDate: getToday(),
       owner: [{ id: 1, name: 'seyeon1' }],
     },
     {
@@ -62,7 +62,7 @@ const initial = {
       order: 3072,
       title: '제목33333333',
       content: '내용3',
-      endDate: '2023-03-03',
+      endDate: getToday(),
       owner: [{ id: 1, name: 'seyeon1' }],
     },
     {
@@ -71,7 +71,7 @@ const initial = {
       order: 1024,
       title: '제목4444',
       content: '내용1',
-      endDate: '2023-03-01',
+      endDate: getToday(),
       owner: [{ id: 1, name: 'seyeon1' }],
     },
     {
@@ -80,7 +80,7 @@ const initial = {
       order: 2048,
       title: '제목555555',
       content: '내용2',
-      endDate: '2023-03-02',
+      endDate: getToday(),
       owner: [{ id: 1, name: 'seyeon1' }],
     },
     {
@@ -89,7 +89,7 @@ const initial = {
       order: 3072,
       title: '제목66666',
       content: '내용3',
-      endDate: '2023-03-03',
+      endDate: getToday(),
       owner: [{ id: 1, name: 'seyeon1' }],
     },
     {
@@ -98,7 +98,7 @@ const initial = {
       order: 1024,
       title: '제목777',
       content: '내용1',
-      endDate: '2023-03-01',
+      endDate: getToday(),
       owner: [{ id: 1, name: 'seyeon1' }],
     },
     {
@@ -107,7 +107,7 @@ const initial = {
       order: 2048,
       title: '제목888888888',
       content: '내용2',
-      endDate: '2023-03-02',
+      endDate: getToday(),
       owner: [{ id: 1, name: 'seyeon1' }],
     },
     {
@@ -116,7 +116,7 @@ const initial = {
       order: 3072,
       title: '제목9999999',
       content: '내용3',
-      endDate: '2023-03-03',
+      endDate: getToday(),
       owner: [{ id: 1, name: 'seyeon1' }],
     },
   ],
@@ -135,9 +135,18 @@ const getData = () => {
       const issues = boardTable.issues
         .filter((issue) => issue.state === state.id)
         .sort((a, b) => a.order - b.order);
+      const formattedIssues = issues.map((issue) => {
+        const target = boardTable.states.find(
+          (state) => state.id === issue.state
+        );
 
-      return { ...state, issues };
+        return target ? { ...issue, state: target.state } : issue;
+      });
+
+      return { ...state, issues: formattedIssues };
     }),
+
+    allState: boardTable.states,
   };
 };
 
@@ -231,6 +240,39 @@ const createIssue = ({ title, ownerList, stateId }) => {
   localStorage.setItem('boardTable', JSON.stringify(db));
 };
 
+const updateIssue = ({ id, title, endDate, owners, state, content }) => {
+  const db = getDB();
+  const newIssues = db.issues.map((issue) => {
+    if (issue.id === id) {
+      const newStateId = db.states.find((dbState) => dbState.id === state).id;
+      const targetStateIssues = db.issues.filter(
+        (issue) => issue.state === newStateId
+      );
+      const newOrder =
+        targetStateIssues[targetStateIssues.length - 1].order + 1024;
+      const newOwners = db.owners.filter((owner) =>
+        owners.find((selected) => selected === owner.id)
+      );
+
+      return {
+        ...issue,
+        title,
+        endDate,
+        content,
+        state: newStateId,
+        owner: newOwners,
+        order: newOrder,
+      };
+    }
+
+    return issue;
+  });
+
+  db.issues = newIssues;
+
+  localStorage.setItem('boardTable', JSON.stringify(db));
+};
+
 export const handlers = [
   rest.get('/board', (req, res, ctx) => {
     const data = getData();
@@ -264,6 +306,14 @@ export const handlers = [
 
   rest.post('/board/issue', (req, res, ctx) => {
     createIssue(req.body);
+
+    const data = getData();
+
+    return res(ctx.status(200), ctx.json(data));
+  }),
+
+  rest.put('/board/issue', (req, res, ctx) => {
+    updateIssue(req.body);
 
     const data = getData();
 

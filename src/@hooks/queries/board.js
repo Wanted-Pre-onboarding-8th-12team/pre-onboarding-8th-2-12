@@ -5,6 +5,7 @@ import {
   getBoard,
   updateBoardTitle,
   updateDnD,
+  updateIssue,
 } from '../../apis/board';
 
 export const useFetchBoard = () => {
@@ -47,6 +48,16 @@ export const useCreateIssue = () => {
   const queryClient = useQueryClient();
 
   return useMutation(createIssue, {
+    onSuccess() {
+      queryClient.invalidateQueries(['board']);
+    },
+  });
+};
+
+export const useUpdateIssue = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation(updateIssue, {
     onSuccess() {
       queryClient.invalidateQueries(['board']);
     },

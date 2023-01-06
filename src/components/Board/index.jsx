@@ -1,8 +1,6 @@
 import { useBoard } from '../../@hooks/business/board';
 import { useFetchBoard } from '../../@hooks/queries/board';
 import { editableHandler } from '../../utils/editableHandler';
-import { Modal } from '../common/Modal';
-import { UpdateCardModal } from '../common/Modal/UpdateCardModal';
 import { DnDList } from '../DnDList';
 import { Styled } from './style';
 
@@ -25,12 +23,10 @@ export const Board = () => {
             stateData={state}
             onDelete={deleteIssue}
             owners={board.owners}
+            allState={board.allState}
           />
         ))}
       </Styled.Main>
-      <Modal>
-        <UpdateCardModal />
-      </Modal>
     </Styled.Root>
   );
 };

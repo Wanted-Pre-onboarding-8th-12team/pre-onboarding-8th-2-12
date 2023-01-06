@@ -2,9 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Styled } from './style';
 
-export const Modal = ({ children }) => {
+export const Modal = ({ children, closeModal }) => {
   return ReactDOM.createPortal(
-    <Styled.Background>{children}</Styled.Background>,
+    <>
+      <Styled.Background onClick={closeModal} />
+      {children}
+    </>,
     document.querySelector('#root')
   );
 };

@@ -13,3 +13,6 @@ export const deleteIssue = async (id) =>
 
 export const createIssue = async (payload) =>
   await axios.post(`/board/issue`, payload);
+
+export const updateIssue = async (payload) =>
+  await axios.put(`/board/issue`, payload);

@@ -21,8 +21,7 @@ export const TextArea = (props) => {
       onChange={changeHandler}
       rows={1}
       autoFocus
-      {...attr}>
-      TextArea
-    </textarea>
+      {...attr}
+    />
   );
 };

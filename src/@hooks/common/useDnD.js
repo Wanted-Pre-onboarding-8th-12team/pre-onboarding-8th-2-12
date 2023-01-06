@@ -48,15 +48,10 @@ export const useDnD = () => {
      * 뮤테이션 후 초기화
      */
     if (positionInfo.targetId && draggingId !== positionInfo.targetId) {
-      updateDnD(
-        { ...positionInfo, draggingId },
-        {
-          onSettled() {
-            setPositionInfo(initialInfo);
-          },
-        }
-      );
+      updateDnD({ ...positionInfo, draggingId });
     }
+
+    setPositionInfo(initialInfo);
   };
 
   const handleDragLeave = (e) => setPositionInfo(initialInfo);
