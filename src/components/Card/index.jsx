@@ -1,4 +1,5 @@
 import React from 'react';
+import { Modal } from '../common/Modal';
 import { Styled } from './style';
 
 export const Card = ({ issue, DnD, onClick: deleteIssue }) => {
@@ -24,6 +25,7 @@ export const Card = ({ issue, DnD, onClick: deleteIssue }) => {
       {...(targetId === id ? { position } : null)}>
       <Styled.Title>{title}</Styled.Title>
       <Styled.DeleteBtn onClick={() => deleteIssue(id)}>삭제</Styled.DeleteBtn>
+      {/* <Modal></Modal> */}
     </Styled.Root>
   );
 };
