@@ -28,6 +28,15 @@ Drag and Drop 기능<br>
 ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/104156381/211021313-f1a70a56-290d-4ee1-8cd1-c50f9962a525.gif)<br><br><br>
 Error Handling<br>
 ![image](https://user-images.githubusercontent.com/104156381/211021453-dc8c1789-9f2a-4b31-8578-0d03400b45da.png)
+모달창 상태 수정
+
+![모달창-상태-수정](https://user-images.githubusercontent.com/96014828/211024019-21c0d7ed-c508-47fc-94b1-ff2294000bf7.gif)
+
+모달 정보수정
+![모달창-정보수정](https://user-images.githubusercontent.com/96014828/211023656-e3a077eb-48ef-4356-8340-4f2ad61d9f53.gif)
+
+CRUD
+![CRUD-추가삭제](https://user-images.githubusercontent.com/96014828/211023461-6a60cb06-b3a2-4ea7-bf32-8809aa7854b2.gif)
 
 ---
 
