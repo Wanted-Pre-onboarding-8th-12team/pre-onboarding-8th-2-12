@@ -24,10 +24,10 @@
 ---
 
 ## 🖥 Demo
-
-시연영상
- [Uploading 에러-처리.gif…]()
-
+Drag and Drop 기능<br>
+![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/104156381/211021313-f1a70a56-290d-4ee1-8cd1-c50f9962a525.gif)<br><br><br>
+Error Handling<br>
+![image](https://user-images.githubusercontent.com/104156381/211021453-dc8c1789-9f2a-4b31-8578-0d03400b45da.png)
 
 ---
 
