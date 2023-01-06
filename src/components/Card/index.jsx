@@ -16,6 +16,11 @@ export const Card = ({ issue, DnD, deleteIssue, allState, owners }) => {
     handleDrop,
   } = DnD;
 
+  const deleteButtonHandler = (e) => {
+    e.stopPropagation();
+    deleteIssue(id);
+  };
+
   return (
     <>
       <Styled.Root
@@ -29,9 +34,7 @@ export const Card = ({ issue, DnD, deleteIssue, allState, owners }) => {
         hover
         {...(targetId === id ? { position } : null)}>
         <Styled.Title>{title}</Styled.Title>
-        <Styled.DeleteBtn onClick={() => deleteIssue(id)}>
-          삭제
-        </Styled.DeleteBtn>
+        <Styled.DeleteBtn onClick={deleteButtonHandler}>삭제</Styled.DeleteBtn>
       </Styled.Root>
       {isOpened && (
         <Modal closeModal={closeModal}>
