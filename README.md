@@ -68,7 +68,19 @@
 - [ ] 각 기능들은 실수로 인한 중복 액션을 방지하기 위해 실행 후 0.5초의 딜레이를 적용한다.
 - [x] 데이터는 새로고침해도 유지될 수 있도록 관리한다.
 
+### 🥲 Best Practice는 아니었지만 고민한 것과 개발 내용
+
+> 내용이 방대하여 추가적인 링크로 전달드립니다.
+
+- [류지창 Trouble Shooting Log](https://www.notion.so/24cfdc20665a46d898cca90820da94f1)
+- [박준하 Trouble Shooting Log](https://absorbed-leek-405.notion.site/91ba52e08d8e433fb4a09a1aa52f2d9c)
+- [조영일 Trouble Shooting Log](https://absorbed-leek-405.notion.site/5c733ee10752438ab6bfa7111741ebe0)
+
 ## 👍 Best Practice
+
+Best Practice는 [세연](https://github.com/n0eyes)님의 코드를 선정했습니다.
+
+세연님의 코드의 특별한 점을 아래에 사항에 설명드리겠습니다.
 
 ### 1. 데이터 유지
 
@@ -86,14 +98,6 @@ export const handlers = [
   }),
 ];
 ```
-
-<!-- #### 다른 case
-
-- localStorage를 이용하여 데이터를 유지하는 방법
-
-**비선정 이유**
-- 데이터가 늘어날 수록 사용자 환경에서 부담해야하는 데이터의 크기가 커진다.
-- 서버를 사용하지 않으므로 데이터 추적이 어렵다 -->
 
 ### 2. 이슈 목록 순서 적용 방법
 
@@ -183,6 +187,14 @@ const updateDnD = (body) => {
   localStorage.setItem('boardTable', JSON.stringify(db));
 };
 ```
+
+#### 생각해본 다른 case
+
+1. dragDrop된 element의 위치를 가져와 리스트의 `e.clientY >= (elementRect.top + elementRect.bottom) / 2`로 비교하여 index를 찾는 방식
+
+2.
+
+3. 배열 고차함수 reduce를 사용하여 index를 누적하여 추가될 배열 요소 index를 가져와 이전 배열, 이후 배열을 새로 만들어 전체 리스트의 내용을 전부 교체하는 방식
 
 [참고문헌](https://blog.hyositive.com/m/55)
 
@@ -284,7 +296,7 @@ react의 Suspense 컴포넌트를 이용해서 로딩에 대한 fallback을 구�
 </Layout>
 ```
 
-### 5. 불필요한 렌더린 방지
+### 5. 불필요한 렌더링 방지
 
 - 제자리 DnD 방지
 
